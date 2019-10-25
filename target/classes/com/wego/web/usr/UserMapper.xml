@@ -6,12 +6,12 @@
    <mapper namespace="com.wego.web.usr.UserMapper">
     <select id="selectByIdPw"  resultType="User">
         SELECT * FROM USER WHERE UID LIKE #{uid} 
-        and pwd like #{pwd}
+        and PWD like #{pwd}
     </select>
     <select id="existId" resultType="int">
         select count(*)
         from user
-        where uid like #{uid};
+        where UID like #{uid};
     </select>
 <insert
   id="insertUser"

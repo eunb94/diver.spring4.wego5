@@ -32,7 +32,7 @@ public class UserCtrl {
 	public Map<?, ?> existId(@PathVariable String uid) {
 		IFunction<String, Integer> p = o -> userMapper.existId(uid);
 		map.clear();
-		map.put("msg", (p.apply(uid) == 0) ? "SECCESS" : "FAIL");
+		map.put("msg", (p.apply(uid) == 0) ? "SUCCESS" : "FAIL");
 
 		return map;
 	}
