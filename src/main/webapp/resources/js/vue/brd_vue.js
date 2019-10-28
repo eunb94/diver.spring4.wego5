@@ -146,7 +146,7 @@ brd_vue = {
 		'    <!-- Bootstrap core JavaScript'+
 		'    ================================================== -->'+
 		'    <!-- Placed at the end of the document so the pages load faster -->'+
-		'    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"  crossorigin="anonymous"></script>'+
+		'    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"  crossorigin="anonymous"></script>'+
 		'    <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>'+
 		'    <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>'+
 		'    <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/holder.min.js"></script>'+
@@ -154,22 +154,22 @@ brd_vue = {
 		'<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="2" style="font-weight:bold;font-size:2pt;font-family:Arial, Helvetica, Open Sans, sans-serif">32x32</text></svg></body>'
 
 	},
-	brd_write: d=>{
-		  return '<div class="container-fluid" style="width:80%">'
-		  +'<h1>ARTICLE WRITING</h1>'
-		  +'<form>'
-		  +'<input type="text" name="writer" style="margin-top:20px" class="form-control" placeholder="아이디 : '+d.uid+', 이름 :'+d.uname+'" />'
-		  +'<input type="text" name="title" style="margin-top:20px" class="form-control" placeholder="제목" /><br />'
-		  +'<div class="row">'
-		  +'<div style="width:97%; margin:10px auto" >'
-		  +'<textarea name="content" class="form-control" rows="10" id="comment"></textarea>'
-		  +' </div>'
-		  +' </div>'
-		  +' <input type="reset" class="btn btn-danger" style="float:right;width:100px;margin-right:10px" value="CANCEL"/>'
-		  +'<input name="write" type="submit" class="btn btn-primary" style="float:right;width:100px;margin-right:10px" value="SUBMIT"/>'
-		  +'<input type="hidden" name="action" value="write"/>'
-		  +'<input type="hidden" name="pageName" value="detail" />'
-		  +'</form>'
-		  +'</div>'
-		 }
+	brd_write: x=>{
+        return '<div class="container-fluid" style="width:80%">'
+        +'<h1>ARTICLE WRITING</h1>'
+        +'<form id="write_form">'
+        +'<input type="text" name="writer" style="margin-top:20px" class="form-control" placeholder="작성자ID" />'
+        +'<input type="text" name="title" style="margin-top:20px" class="form-control" placeholder="제목" /><br />'
+        +'<div class="row">'
+        +'<div style="width:97%; margin:10px auto" >'
+        +'<textarea name="content" class="form-control" rows="10"></textarea>'
+        +' </div>'
+        +' </div>'
+/*        +' <input type="reset" class="btn btn-danger" style="float:right;width:100px;margin-right:10px" value="CANCEL"/>'
+        +'<input name="write" type="submit" class="btn btn-primary" style="float:right;width:100px;margin-right:10px" value="SUBMIT"/>'*/
+/*        +'<input type="hidden" name="action" value="write"/>'
+        +'<input type="hidden" name="pageName" value="detail" />'*/
+        +'</form>'
+        +'</div>'
+       }
 };

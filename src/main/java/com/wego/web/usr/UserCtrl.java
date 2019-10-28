@@ -18,7 +18,7 @@ import com.wego.web.utl.Printer;
 @RestController
 @RequestMapping("/users")
 public class UserCtrl {
-	private static final Logger logger = LoggerFactory.getLogger(UserCtrl.class);
+
 	@Autowired
 	Map<String, Object> map;
 	@Autowired

@@ -102,14 +102,19 @@ auth = (()=>{
           contentType : 'application/json',
           success : d =>{
               $.when(
-                $.getScript(brd_js),
-                $.getScript(router_js)
-            )
-            .done(()=>{
-                $.extend(new User(d))
-                brd.onCreate(d)
+            		  $.getScript(router_js,()=>{$.extend(new User(d))}), 
+                $.getScript(brd_js)
+                       
+            ).done(()=>{            	
+            	brd.onCreate()
+            	alert(d.uname+' 님 환영합니다')
+            }
+            ).fail(()=>{
+            	alert('WHEN DONE 실패')
             })
-            alert(d.uname+' 님 환영합니다')
+            //$.getScript(x+'/resources/js/cmm/router.js', 
+			//()=>{$.extend(new Session(x));
+            
           },
           error : e => {
 	    	alert('Login AJAX 실패');
