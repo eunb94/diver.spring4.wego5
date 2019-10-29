@@ -3,11 +3,30 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wego.web.brd.ArticleMapper">
+
+     <select id="countByArticle" resultType="String">
+  	SELECT COUNT(*) FROM ARTICLE
   
+  </select>
   
    <insert id="insertArticle" parameterType="Article">
        INSERT INTO ARTICLE(UID, BOARD_TYPE, TITLE, CONTENT) VALUES (
             #{uid}, #{boardType},#{title}, #{content}
        )
    </insert>
+   <select id="selectAll" resultType="Article">
+   		SELECT A.BOARD_TYPE AS boardType, A.* FROM ARTICLE A
+   </select>
+   
+   		<select id="updateArticle" resultType="Article">
+   		UPDATE ARTICLE SET
+    TITLE = #{title},
+    CONTENT = #{content}
+    WHERE ARTSEQ = #{artseq}
+   		</select>
+	<select id="deleteArticle" resultType="Article">
+		DELETE FROM ARTICLE WHERE TITLE = #{title}
+	</select>
+	
+	
 </mapper>

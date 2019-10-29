@@ -59,6 +59,8 @@ auth = (()=>{
     	$('head').html(auth_vue.login_head({css: $.css(), img: $.img()}))
         $('body').addClass('text-center')
         .html(auth_vue.login_body({css: $.css(), img: $.img()}))
+        $('#uid').val('aa'),
+        $('#pwd').val('aa')
     	 login()
     }
 
