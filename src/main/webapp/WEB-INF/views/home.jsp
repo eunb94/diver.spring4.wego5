@@ -12,6 +12,8 @@
 	<script src="<%=application.getContextPath()%>/resources/js/vue/auth_vue.js"></script>
 	<script src="<%=application.getContextPath()%>/resources/js/vue/brd_vue.js"></script> 
 	<script src="<%=application.getContextPath()%>/resources/js/brd/brd.js"></script> 
+	<script src="<%=application.getContextPath()%>/resources/js/cmm/navi.js"></script> 
+	<script src="<%=application.getContextPath()%>/resources/js/cmm/cookie.js"></script> 
 	<script>
 	app.run('<%=application.getContextPath()%>');
 	</script>

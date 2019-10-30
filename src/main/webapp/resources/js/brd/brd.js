@@ -1,28 +1,37 @@
 "use strict"
 var brd = brd||{}
 brd = (()=>{
-	let _, js, brd_vue_js, $userid
-	let init =()=>{
-		 _ = $.ctx()
-        js = $.js()
-        brd_vue_js = js+'/vue/brd_vue.js'
-        $userid = $.userid()
-
-	}
-	let onCreate =()=>{
-		init()
-		$.getScript(brd_vue_js, ()=>{
+	const WHEN_ERR = '호출하는 JS 파일을 찾지 못했습니다.'
+		let _, js, css, img, brd_vue_js, navi_js, navi_vue_js
+		let init =x=>{
+			_= $.ctx()
+	         js = $.js()
+	         css = $.css()
+	         img = $.img()
+	        navi_js = js+'/cmm/navi.js'
+	        brd_vue_js = js + '/vue/brd_vue.js'
+	        navi_vue_js = js + '/vue/navi_vue.js'
+	        alert('1'+_)
+		}
+	let onCreate =x=>{
+		init(x)
+		$.when(
+			$.getScript(brd_vue_js),
+			$.getScript(navi_js),
+			$.getScript(navi_vue_js)
+		).done(()=>{
 			setContentView()
-			navigation()
+			navi.onCreate({_:_, js:js, css:css,img:img})
+		}).fail(()=>{
+			alert(WHEN_ERR)
 		})
 	}
-			 
 	let setContentView=()=>{
-			$('head').html(brd_vue.brd_head())
-	        $('body').addClass('text-center')
-	        .html(brd_vue.brd_body({ctx: '/web',css: $.css(), img: $.img()}))
-	        recent_updates()
-	       
+		$('head').html(brd_vue.brd_head({css: $.css(), img: $.img()}))
+        $('body').addClass('text-center')
+        .html(brd_vue.brd_body({ctx: '/web',css: $.css(), img: $.img()}))
+        $(navi_vue.nav()).appendTo('#navi')
+        recent_updates()
 	}
 	let recent_updates=()=>{
 	    $('#recent_updates .media').remove()
@@ -54,7 +63,7 @@ brd = (()=>{
 		}
 	let write=()=>{
 		$('#recent_updates').html(brd_vue.brd_write())
-		$('#write_form input[name="writer"]').val($userid)
+		$('#write_form input[name="writer"]').val(getCookie("USERID"))
 		$('#suggestions').remove()
 		$('<input>',{
 			style: "float:right;width:100px;margin-right:10px",
@@ -79,8 +88,9 @@ brd = (()=>{
 					content: $('#write_form textarea[name="content"]').val()
 			}
 			alert('글내용 '+json.content)
+			alert('2'+_)
 			$.ajax({
-				url : _+'/articles/',
+				url : sessionStorage.getItem('ctx')+'/articles/',
 				type : 'POST',
 				data : JSON.stringify(json),
 				dataType : 'json',
@@ -98,23 +108,10 @@ brd = (()=>{
 		})
 		
 	}
-let navigation = () => {
-		
-		$('<a>',{
-        	href : '#',
-        	click : e=>{
-	        	e.preventDefault()
-	        	write()
-	        },
-	        text : '글쓰기'
-        })
-        .addClass('nav-link')
-        .appendTo('#go_write')
-	}
 let detail = x =>{
 	alert('넘기는 seq 값 '+x)
-	$('#recent_updates').html(brd_vue.brd_write())
-	$('#recent_updates div.container-fluid h1').html('ARTICLE DETAIL')
+		$('#recent_updates').html(brd_vue.brd_write())
+		$('#recent_updates div.container-fluid h1').html('ARTICLE DETAIL')
 		$('#write_form input[name="writer"]').val(x.uid)
 		$('#write_form input[name="title"]').val(x.title)
 		$('#write_form textarea[name="content"]').val(x.content)
@@ -182,5 +179,5 @@ let detail = x =>{
 			})	
 		})
 		}
-	return {onCreate}
+	return {onCreate, write}
 })()
