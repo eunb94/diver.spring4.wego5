@@ -13,7 +13,7 @@ auth = (()=>{
 	        router_js = js + '/cmm/router.js'
 	        cookie_js = js + '/cmm/cookie.js'
 	    }
-
+	    
 	    let onCreate =()=>{
 	        init()
 	        $.when(
@@ -71,6 +71,7 @@ auth = (()=>{
         $('#uid').val('aa'),
         $('#pwd').val('aa')
     	 login()
+    	 access()
     }
 
     let join =()=>{
@@ -158,6 +159,36 @@ auth = (()=>{
         	.addClass('text-center')
         	.html(brd_vue.brd_body())	
     	})
+    }
+    let access=()=>{
+    	$('#a_go_admin').click(()=>{
+    		let ok = confirm('사원입니까?')
+    		if(ok){
+    			//alert('입력한 사번 : '+ eid)	
+    			let eid = prompt('사원번호를 입력하시오')
+    			
+    			$.ajax({
+    				url : _+'/admins/'+eid,
+    				type : 'POST',
+    				data : JSON.stringify({eid : eid , pwd : prompt('비밀번호를 입력하시오')}),
+    				dataType : 'json',
+    				contentType : 'application/json',
+    				success : d=>{
+    					alert(d.msg)
+    					if(d.msg === 'SUCCESS'){
+    						alert('환영합니다~')
+    						admin.onCreate()
+    					}else{
+    						alert('접근권한이 없습니다.')
+    						app.run(_)
+    					}
+    					
+    				},
+    				error : e=>{}
+    			})
+    		}
+    	})
+
     }
     return {onCreate, join, login, brd_home}
 

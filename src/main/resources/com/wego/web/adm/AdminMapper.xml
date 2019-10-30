@@ -6,4 +6,8 @@
 	<select id="countAdmins" resultType="int">
 		SELECT COUNT(*) COUNT FROM ADMIN
 	</select>
+	<select id="selectByIdPw" resultType="Admin">
+		SELECT * FROM ADMIN WHERE EID LIKE #{eid} 
+        and PWD like #{pwd}
+	</select>
 </mapper>

@@ -1,5 +1,10 @@
 package com.wego.web.adm;
 
-public interface AdminMapper {
+import org.springframework.stereotype.Repository;
 
+@Repository
+public interface AdminMapper {
+	public void insertAdmin(Admin admin);
+	public Admin selectByIdPw(Admin admin);
+	public int existId(String eid);
 }

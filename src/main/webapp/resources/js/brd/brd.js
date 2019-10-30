@@ -37,7 +37,7 @@ brd = (()=>{
 	    $('#recent_updates .media').remove()
 	    $('#suggestions').remove()
 	    $('#recent_updates .d-block').remove()
-	    $.getJSON(_+'/articles/',d=>{
+	    $.getJSON(sessionStorage.getItem('ctx')+'/articles/',d=>{
 	    	alert('글목록 숫자 :' +d.count)
 				let i =0
 				let res = ''
@@ -99,8 +99,7 @@ brd = (()=>{
 					alert('글목록 : '+ d.count)
 					$('#recent_updates div.container-fluid').remove()
 					recent_updates()
-					
-			
+		
 					
 				},
 				error : e=>{alert('에러')}

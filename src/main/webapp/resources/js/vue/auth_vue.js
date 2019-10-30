@@ -284,11 +284,14 @@ auth_vue = {
 		'    <input type="password" id="pwd" class="form-control" placeholder="Password" required="">'+
 		'    <div class="checkbox mb-3">'+
 		'      <label>'+
-		'      <a id = "a_go_join" href="#">GO JOIN</a>'+
+		'      <a id = "a_go_join" href="#">회원가입</a>'+
+		'      </label>'+
+		'      <label>'+
+		'      <a id = "a_go_admin" href="#">관리자모드</a>'+
 		'      </label>'+
 		'    </div>'+
 		'    <div id="btn_login"></div>'+
-		'    <p class="mt-5 mb-3 text-muted">© 2017-2019</p>'+
+		'    <p class="mt-5 mb-3 text-muted">© WeGo</p>'+
 		'  </form>'
 		
 	}	
