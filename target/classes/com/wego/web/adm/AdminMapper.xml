@@ -7,7 +7,35 @@
 		SELECT COUNT(*) COUNT FROM ADMIN
 	</select>
 	<select id="selectByIdPw" resultType="Admin">
-		SELECT * FROM ADMIN WHERE EID LIKE #{eid} 
-        and PWD like #{pwd}
+		SELECT * FROM ADMIN 
+  			WHERE EID LIKE #{eid} 
+		<if test="pwd !=null">
+		 and PWD like #{pwd}
+		</if>
+		<if test="eName !=null">
+		 and ENAME like #{eName}
+		</if>
+		<if test="job !=null">
+		 and JOB like #{job}
+		</if>
+  
+	</select>
+	
+		<select id="selectAdmin" resultType="Admin" parameterType="hashMap">
+		SELECT * 
+		FROM ADMIN 
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+  			WHERE ${eid} LIKE #{eid} 
+		<if test="pwd !=null">
+		 and PWD like #{pwd}
+		</if>
+		<if test="eName !=null">
+		 and ENAME like #{eName}
+		</if>
+		<if test="job !=null">
+		 and JOB like #{job}
+		</if>
+		</trim>
+  
 	</select>
 </mapper>

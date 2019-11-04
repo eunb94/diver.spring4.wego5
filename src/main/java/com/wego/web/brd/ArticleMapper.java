@@ -2,8 +2,9 @@ package com.wego.web.brd;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
-
+@Lazy
 @Repository
 public interface ArticleMapper {
 	public void insertArticle(Article article);

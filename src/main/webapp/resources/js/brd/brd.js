@@ -1,7 +1,7 @@
 "use strict"
 var brd = brd||{}
 brd = (()=>{
-	const WHEN_ERR = '호출하는 JS 파일을 찾지 못했습니다.'
+
 		let _, js, css, img, brd_vue_js, navi_js, navi_vue_js
 		let init =x=>{
 			_= $.ctx()

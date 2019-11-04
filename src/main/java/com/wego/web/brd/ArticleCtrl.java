@@ -52,7 +52,7 @@ public class ArticleCtrl {
 	}
 	@GetMapping("/")
 	public List<Article> list(){
-		list.clear();	
+		list.clear();		
 		ISupplier<List<Article>> s = ()-> articleMapper.selectAll();
 		printer.accept("전체 글목록 \n"+s.get());
 		

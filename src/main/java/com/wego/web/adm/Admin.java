@@ -1,10 +1,13 @@
 package com.wego.web.adm;
 import java.io.Serializable;
+
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+@Lazy
 @Data
 @Component
 @AllArgsConstructor

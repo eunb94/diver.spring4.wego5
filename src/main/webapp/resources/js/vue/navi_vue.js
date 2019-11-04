@@ -2,7 +2,7 @@ var navi_vue = navi_vue || {}
 navi_vue = {
 		nav : ()=>{
 			return '<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">'+
-			'      <a class="navbar-brand" href="#"><i class="fab fa-angellist fa-2x"></i></a>'+
+			'      <a class="navbar-brand" href="#"><i class="fas fa-asterisk fa-2x"></i></a>'+
 			'      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">'+
 			'        <span class="navbar-toggler-icon"></span>'+
 			'      </button>'+
