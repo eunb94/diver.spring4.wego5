@@ -1,5 +1,6 @@
 package com.wego.web.brd;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -50,13 +51,15 @@ public class ArticleCtrl {
 		printer.accept("글쓰기 나옴");
 		return map;
 	}
-	@GetMapping("/")
-	public List<Article> list(){
+	@GetMapping("/{pageNo}")
+	public Map<?,?> list(@PathVariable String pageNo){
 		list.clear();		
 		ISupplier<List<Article>> s = ()-> articleMapper.selectAll();
-		printer.accept("전체 글목록 \n"+s.get());
-		
-		return s.get();
+		printer.accept("해당페이지 글 목록 : \n"+s.get());
+		map.clear();
+		map.put("articles", s.get());
+		map.put("pages", Arrays.asList(1,2,3,4,5));
+		return map;
 		
 	}
 	
