@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class MybatisConfig {
 	@Autowired
 	ApplicationContext applicationContext;
-	
+	//test
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws Exception {
 	  SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
