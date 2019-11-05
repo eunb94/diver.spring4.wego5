@@ -14,12 +14,12 @@
             #{uid}, #{boardType},#{title}, #{content}
        )
    </insert>
-   <select id="selectAll" resultType="Article">
+   <select id="selectAll" resultType="Article" parameterType="Article">
    		SELECT A.BOARD_TYPE AS boardType, A.* FROM (
 			SELECT *
 			FROM ARTICLE
 			ORDER BY ARTSEQ DESC) A
-		LIMIT 0, 5
+		LIMIT ${startRow}, ${pageSize}
    		
    </select>
    

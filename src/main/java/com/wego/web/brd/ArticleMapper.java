@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
+
+import com.wego.web.pxy.Proxy;
 @Lazy
 @Repository
 public interface ArticleMapper {
@@ -12,5 +14,6 @@ public interface ArticleMapper {
 	public List<Article> selectAll();
 	public void updateArticle(Article article);
 	public void deleteArticle(Article article);
+	public List<Article> selectAll(Proxy proxy);
 
 }

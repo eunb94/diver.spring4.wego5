@@ -1,6 +1,7 @@
 package com.wego.web.brd;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wego.web.cmm.IConsumer;
 import com.wego.web.cmm.IFunction;
 import com.wego.web.cmm.ISupplier;
+import com.wego.web.pxy.Proxy;
+import com.wego.web.pxy.ProxyMap;
 import com.wego.web.utl.Printer;
 
 
@@ -29,6 +32,8 @@ public class ArticleCtrl {
 	@Autowired
 	Map<String, Object> map;
 	@Autowired
+	ProxyMap pxyMap;
+	@Autowired
 	Article art;
 	@Autowired
 	Printer printer;
@@ -36,6 +41,7 @@ public class ArticleCtrl {
 	ArticleMapper articleMapper;
 	@Autowired
 	List<Article> list;
+	@Autowired Proxy pxy;
 	
 	@PostMapping("/")
 	public Map<?, ?> write(@RequestBody Article param){
@@ -43,23 +49,23 @@ public class ArticleCtrl {
 		param.setBoardType("게시판");
 		IConsumer<Article> c = t ->articleMapper.insertArticle(param);
 		c.accept(param);
-		map.clear();	
-		map.put("msg", "SUCCESS");
+
 		ISupplier<String> s =()->articleMapper.countByArticle();
-		printer.accept("카운팅 : "+s.get());
-		map.put("count", s.get());
-		printer.accept("글쓰기 나옴");
-		return map;
+		pxyMap.accept(Arrays.asList("msg", "count"),
+				Arrays.asList("SUCCESS", s.get()));
+		return pxyMap.get();
 	}
-	@GetMapping("/{pageNo}")
-	public Map<?,?> list(@PathVariable String pageNo){
+	@GetMapping("/{pageNo}/size/{pageSize}")
+	public Map<?,?> list(@PathVariable String pageNo, @PathVariable String pageSize){
+		pxy.setPageNum(pxy.parseInt(pageNo));
+		pxy.setPageSize(pxy.parseInt(pageSize));
+		pxy.paging();
 		list.clear();		
-		ISupplier<List<Article>> s = ()-> articleMapper.selectAll();
+		ISupplier<List<Article>> s = ()-> articleMapper.selectAll(pxy);
 		printer.accept("해당페이지 글 목록 : \n"+s.get());
-		map.clear();
-		map.put("articles", s.get());
-		map.put("pages", Arrays.asList(1,2,3,4,5));
-		return map;
+		pxyMap.accept(Arrays.asList("articles", "pages"),
+				Arrays.asList(s.get(), Arrays.asList(1,2,3,4,5)));
+		return pxyMap.get();
 		
 	}
 	
@@ -67,9 +73,8 @@ public class ArticleCtrl {
 	public Map<?,?> count(){
 		ISupplier<String> s =()->articleMapper.countByArticle();
 		printer.accept("카운팅 : "+s.get());
-		map.clear();
-		map.put("count", s.get());
-		return map;
+		pxyMap.accept(Arrays.asList("count"), Arrays.asList(s.get()));
+		return pxyMap.get();
 		
 	}
 	

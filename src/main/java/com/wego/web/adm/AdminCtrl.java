@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wego.web.cmm.IConsumer;
 import com.wego.web.cmm.IFunction;
+import com.wego.web.pxy.ProxyMap;
 import com.wego.web.utl.Printer;
 
 @RestController
@@ -27,6 +28,8 @@ public class AdminCtrl {
 	Admin admin;
 	@Autowired
 	AdminMapper adminMapper;
+	@Autowired
+	ProxyMap pxyMap;
 	
 	
 	@PostMapping("/")
