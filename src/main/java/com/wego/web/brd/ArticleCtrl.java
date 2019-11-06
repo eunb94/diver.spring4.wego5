@@ -29,19 +29,14 @@ import com.wego.web.utl.Printer;
 @RequestMapping("/articles")
 public class ArticleCtrl {
 	private static final Logger logger = LoggerFactory.getLogger(ArticleCtrl.class);
-	@Autowired
-	Map<String, Object> map;
-	@Autowired
-	ProxyMap pxyMap;
-	@Autowired
-	Article art;
-	@Autowired
-	Printer printer;
-	@Autowired
-	ArticleMapper articleMapper;
-	@Autowired
-	List<Article> list;
+	@Autowired Map<String, Object> map;
+	@Autowired ProxyMap pxyMap;
+	@Autowired Article art;
+	@Autowired Printer printer;
+	@Autowired ArticleMapper articleMapper;
+	@Autowired List<Article> list;
 	@Autowired Proxy pxy;
+	
 	
 	@PostMapping("/")
 	public Map<?, ?> write(@RequestBody Article param){
@@ -63,11 +58,15 @@ public class ArticleCtrl {
 		list.clear();		
 		ISupplier<List<Article>> s = ()-> articleMapper.selectAll(pxy);
 		printer.accept("해당페이지 글 목록 : \n"+s.get());
-		pxyMap.accept(Arrays.asList("articles", "pages"),
-				Arrays.asList(s.get(), Arrays.asList(1,2,3,4,5)));
+		int ran = pxy.random(10, 100);
+		System.out.println("랜덤값 = " + ran);
+		pxyMap.accept(Arrays.asList("articles", "pages", "pxy"),
+				Arrays.asList(s.get(), Arrays.asList(1,2,3,4,5), pxy));
+		
 		return pxyMap.get();
 		
 	}
+	
 	
 	@GetMapping("/count")
 	public Map<?,?> count(){
@@ -83,7 +82,6 @@ public class ArticleCtrl {
 		param.setArtseq(artseq);
 		printer.accept("수정들어옴 "+artseq);
 		IConsumer<Article> c=t-> articleMapper.updateArticle(param);
-		
 		c.accept(param);
 		map.clear();
 		map.put("msg", "SUCCESS");

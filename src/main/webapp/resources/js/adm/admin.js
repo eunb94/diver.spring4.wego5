@@ -72,8 +72,8 @@ admin = (()=>{
 				})
 			})
 			$('#left').css({border: '2px solid black', width: '20%', 'vertical-align':'top'})
-			$('#left div')
-			web_crawl()		
+		/*	$('#left div')
+			web_crawl()	*/	
 		}
 		let web_crawl=()=>{
 			$('</br></br></br></br></br><h2>Web Crawling</h2></br></br></br></br></br></br></br>'+	

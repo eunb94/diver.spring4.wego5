@@ -3,6 +3,7 @@ package com.wego.web.pxy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import org.jsoup.Connection;
@@ -22,6 +23,7 @@ import lombok.Data;
 @Data @Component @Lazy
 public class Proxy {
 	private int pageNum, pageSize, startRow, endRow;
+	private boolean existPrev, existNext;
 	private String search;
 	/*@Autowired List<String> proxylist;*/
 	private final int BLOCK_SIZE = 5;
@@ -30,17 +32,18 @@ public class Proxy {
 	
 	@SuppressWarnings("unused")
 	public void paging() {
-		ISupplier<String> s = () -> articleMapper.countByArticle();		
-		int totalCount = Integer.parseInt(s.get());	
-		int pageCount = (totalCount % pageSize == 0) ? (totalCount/pageSize) : (totalCount/pageSize)+1;
-		startRow = (pageNum-1) * pageSize;
-		endRow = (pageCount == pageNum) ? startRow + totalCount-1 : (startRow + pageSize)-1;
-		int blockCount = (pageCount % BLOCK_SIZE != 0) ? (pageCount / BLOCK_SIZE)+1 : pageCount / BLOCK_SIZE ;
-		int blockNum = (pageNum - 1)/BLOCK_SIZE;
-		int startPage = (BLOCK_SIZE % pageSize == 0) ? BLOCK_SIZE+1 : BLOCK_SIZE;
-		int endPage = 0;
-		boolean existPrev = false;
-		boolean existNext = false;
+		ISupplier<String> s = ()-> articleMapper.countByArticle();
+		int totalCount = Integer.parseInt(s.get());
+		System.out.println("프록시 안에서 찍은 전체글 갯수: "+totalCount);
+		int pageCount = (totalCount % pageSize != 0) ? (totalCount / pageSize)+1 : totalCount / pageSize;
+		startRow = (pageNum-1)*pageSize;
+		endRow = (pageNum==pageCount) ? totalCount -1 : startRow + pageSize -1;
+		int blockCount = (pageCount % BLOCK_SIZE != 0) ? (pageCount / BLOCK_SIZE)+1 : pageCount / BLOCK_SIZE;
+		int blockNum = (pageNum - 1) / BLOCK_SIZE;
+		int startPage = blockNum * BLOCK_SIZE + 1;
+		int endPage = ((blockNum + 1) != blockCount) ? startPage + (BLOCK_SIZE -1) : pageCount;
+		existPrev = blockNum != 0;
+		existNext = (blockNum + 1) != blockCount;
 	}
 	public int parseInt(String param) {
 		Function<String, Integer> f = s -> Integer.parseInt(s);
@@ -70,6 +73,11 @@ public class Proxy {
 		
 		}
 		return pxyList;
+	}
+	public int random(int x, int y){
+		BiFunction<Integer, Integer, Integer> f = (t,u) ->(int) (Math.random()*(u-t))+t;
+		return f.apply(x, y);
+		
 	}
 
 
