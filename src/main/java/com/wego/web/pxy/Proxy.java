@@ -22,10 +22,11 @@ import lombok.Data;
 
 @Data @Component @Lazy
 public class Proxy {
-	private int pageNum, pageSize, startRow, endRow;
+	private int totalCount, startRow, endRow, 
+				pageCount, pageNum, pageSize, startPage, endPage, 
+				blockCount, blockNum, nextBlock, prevBlock;
 	private boolean existPrev, existNext;
 	private String search;
-	/*@Autowired List<String> proxylist;*/
 	private final int BLOCK_SIZE = 5;
 	@Autowired Printer p;
 	@Autowired ArticleMapper articleMapper;
@@ -44,6 +45,8 @@ public class Proxy {
 		int endPage = ((blockNum + 1) != blockCount) ? startPage + (BLOCK_SIZE -1) : pageCount;
 		existPrev = blockNum != 0;
 		existNext = (blockNum + 1) != blockCount;
+		nextBlock = startPage + BLOCK_SIZE;
+		prevBlock = startPage - BLOCK_SIZE;		
 	}
 	public int parseInt(String param) {
 		Function<String, Integer> f = s -> Integer.parseInt(s);
