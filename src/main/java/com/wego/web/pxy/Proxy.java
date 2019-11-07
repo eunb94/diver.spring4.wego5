@@ -34,15 +34,15 @@ public class Proxy {
 	@SuppressWarnings("unused")
 	public void paging() {
 		ISupplier<String> s = ()-> articleMapper.countByArticle();
-		int totalCount = Integer.parseInt(s.get());
+		totalCount = Integer.parseInt(s.get());
 		System.out.println("프록시 안에서 찍은 전체글 갯수: "+totalCount);
-		int pageCount = (totalCount % pageSize != 0) ? (totalCount / pageSize)+1 : totalCount / pageSize;
+		pageCount = (totalCount % pageSize != 0) ? (totalCount / pageSize)+1 : totalCount / pageSize;
 		startRow = (pageNum-1)*pageSize;
 		endRow = (pageNum==pageCount) ? totalCount -1 : startRow + pageSize -1;
-		int blockCount = (pageCount % BLOCK_SIZE != 0) ? (pageCount / BLOCK_SIZE)+1 : pageCount / BLOCK_SIZE;
-		int blockNum = (pageNum - 1) / BLOCK_SIZE;
-		int startPage = blockNum * BLOCK_SIZE + 1;
-		int endPage = ((blockNum + 1) != blockCount) ? startPage + (BLOCK_SIZE -1) : pageCount;
+		blockCount = (pageCount % BLOCK_SIZE != 0) ? (pageCount / BLOCK_SIZE)+1 : pageCount / BLOCK_SIZE;
+		blockNum = (pageNum - 1) / BLOCK_SIZE;
+		startPage = blockNum * BLOCK_SIZE + 1;
+		endPage = ((blockNum + 1) != blockCount) ? startPage + (BLOCK_SIZE -1) : pageCount;
 		existPrev = blockNum != 0;
 		existNext = (blockNum + 1) != blockCount;
 		nextBlock = startPage + BLOCK_SIZE;

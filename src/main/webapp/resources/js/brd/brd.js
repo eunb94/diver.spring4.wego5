@@ -86,9 +86,10 @@ brd = (()=>{
 			if(pxy.existPrev){
 				$('<li class="page-item"><a class="page-link" href="#">이전</a></li>')
       			.appendTo('#pagination')
-      			.click(()=>{
-      				recent_updates({page: pxy.prevBlock, size: pxy.pageSize})
-      			})
+      			.click(e=>{
+      				e.preventDefault()
+		      		recent_updates({page: pxy.prevBlock, size: pxy.pageSize})
+		      	})
 			}
 /*      		$.each(d.pages,(i,j)=>{
       			$('<li class="page-item"><a class="page-link" href="#">'+j+'</a></li>')
@@ -99,8 +100,8 @@ brd = (()=>{
       			})
       		})*/
 	    			let i = 0
-	    			for(i= pxy.startPage; i<= pxy.endPage; i++){
-	    				if(pxy.pageNum==i){
+	    			for(i = pxy.startPage ; i<= pxy.endPage ; i++){
+	    				if(pxy.pageNum == i){
 	    					$('<li class="page-item"><a class="page-link" href="#">'+i+'</a></li>')
 	    					.appendTo('#pagination')
 	    					.addClass('active')
